@@ -1,0 +1,109 @@
+/* 
+   CSS File for SerialConsole
+   Author - WireBits
+*/
+
+body {
+    font-family: "Courier New", monospace;
+    text-align: center;
+    background-color: #000000;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: white;
+    border: 2px solid #0FFF50;
+    padding: 10px;
+    border-radius: 5px;
+    letter-spacing: 5px;
+}
+
+.console {
+    width: 95vw;
+    max-width: 1300px;
+    height: 450px;
+    border: 2px solid #0FFF50;
+    border-radius: 5px;
+    resize: none;
+    font-size: 14px;
+    overflow-y: auto;
+    overflow-x: auto;
+    white-space: pre;
+    background-color: #000000;
+    color: #FFFFFF;
+    padding: 5px;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    gap: 5px;
+    width: 95vw;
+    max-width: 1300px;
+}
+
+.input-box {
+    flex-grow: 1;
+    max-width: 600px;
+    height: 30px;
+    border: 2px solid #0FFF50;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #000000;
+    color: #FFFFFF;
+	font-weight: bold;
+}
+
+button {
+    width: 150px;
+    height: 40px;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    border: 2px solid transparent;
+}
+
+#sendButton {
+    background-color: #00AB66;
+    color: black;
+    border-color: #00AB66;
+}
+
+#clearButton {
+    background-color: #FF033E;
+    color: white;
+    border: none;
+}
+
+#historyButton {
+    background-color: #FFC72C;
+    color: black;
+    border-color: #FFC72C;
+}
+
+#connectButton {
+    background-color: #7CB9E8;
+    color: black;
+    border-color: #7CB9E8;
+}
+
+select {
+    background-color: #000000;
+    color: white;
+    height: 40px;
+    border-radius: 5px;
+}
