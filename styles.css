@@ -26,6 +26,7 @@ body {
     padding: 10px;
     border-radius: 5px;
     letter-spacing: 5px;
+    user-select: none;
 }
 
 .console {
