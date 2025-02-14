@@ -106,4 +106,5 @@ select {
     color: white;
     height: 40px;
     border-radius: 5px;
+    border: 2px solid #0FFF50;
 }
