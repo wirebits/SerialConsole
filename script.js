@@ -54,7 +54,7 @@ async function disconnectSerial() {
         }
         isConnected = false;
         connectButton.textContent = "Connect";
-        consoleElement.value += "\nDisconnected!\n";
+        consoleElement.value += "Disconnected!\n";
     } catch (err) {
         console.error("Disconnection Error:", err);
         alert("Error while disconnecting!");
@@ -99,28 +99,6 @@ function clearConsole() {
     consoleElement.value = "";
 }
 
-function downloadCommandHistory() {
-    if (commandHistory.length === 0) {
-        alert("No command history available.");
-        return;
-    }
-    let date = new Date();
-    let hours = date.getHours() % 12 || 12;
-    let minutes = date.getMinutes().toString().padStart(2, '0');
-    let seconds = date.getSeconds().toString().padStart(2, '0');
-    let ampm = date.getHours() >= 12 ? 'PM' : 'AM';
-    let dateTimeString = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}_${hours}-${minutes}-${seconds} ${ampm}`;
-    let fileName = `${dateTimeString}-CommandHistory.txt`;
-    let historyContent = commandHistory.map(cmd => `[${dateTimeString}] ${cmd}`).join("\n");
-    let blob = new Blob([historyContent], { type: "text/plain" });
-    let link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = fileName;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
-
 function handleCommandHistory(event) {
     if (event.key === "ArrowUp") {
         if (historyIndex > 0) {
@@ -152,4 +130,3 @@ inputBox.addEventListener("keydown", handleCommandHistory);
 document.getElementById("connectButton").addEventListener("click", connectSerial);
 document.getElementById("sendButton").addEventListener("click", sendData);
 document.getElementById("clearButton").addEventListener("click", clearConsole);
-document.getElementById("historyButton").addEventListener("click", downloadCommandHistory);
