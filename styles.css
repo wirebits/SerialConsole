@@ -48,16 +48,15 @@ body {
 .input-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin-top: 10px;
-    gap: 5px;
+    gap: 6px;
     width: 95vw;
-    max-width: 1300px;
+    max-width: 1500px;
+    margin-top: 10px;
 }
 
 .input-box {
-    flex-grow: 1;
-    max-width: 600px;
+    flex: 1;
+    min-width: 0;
     height: 30px;
     border: 2px solid #0FFF50;
     border-radius: 5px;
@@ -79,21 +78,15 @@ button {
 }
 
 #sendButton {
-    background-color: #00AB66;
-    color: black;
-    border-color: #00AB66;
+    background-color: #0C873F;
+    color: white;
+    border-color: #0C873F;
 }
 
 #clearButton {
     background-color: #FF033E;
     color: white;
-    border: none;
-}
-
-#historyButton {
-    background-color: #FFC72C;
-    color: black;
-    border-color: #FFC72C;
+    border-color: #FF033E;
 }
 
 #connectButton {
