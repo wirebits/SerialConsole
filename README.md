@@ -7,7 +7,6 @@ A web tool for communicating with serial devices via browser.
 - Different Baud Rates with Connect and Disconnect buttons.
 - Send Button - Send commands to the serial devices.
 - Clear Button - Clears the console.
-- Command History Button - Save command history on the system in `.txt` for future use.
 
 # OS Support
 - Windows 10
