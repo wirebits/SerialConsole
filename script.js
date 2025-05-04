@@ -5,6 +5,8 @@ let port;
 let reader;
 let writer;
 let isConnected = false;
+let isManualDisconnect = false;
+
 let textDecoder = new TextDecoder();
 let consoleElement = document.getElementById("console");
 let inputBox = document.getElementById("inputBox");
@@ -12,6 +14,7 @@ let connectButton = document.getElementById("connectButton");
 
 let commandHistory = [];
 let historyIndex = -1;
+let suppressBootGarbage = true;
 
 async function connectSerial() {
     try {
@@ -30,9 +33,15 @@ async function connectSerial() {
         consoleElement.value += "Connected! Go On!\n";
         isConnected = true;
         connectButton.textContent = "Disconnect";
+
         reader = port.readable.getReader();
         writer = port.writable.getWriter();
+
+        suppressBootGarbage = true;
+        setTimeout(() => suppressBootGarbage = false, 1500);
+
         readData();
+
     } catch (err) {
         console.error("Error:", err);
         alert("Failed to connect to serial port.");
@@ -41,6 +50,8 @@ async function connectSerial() {
 
 async function disconnectSerial() {
     try {
+        isManualDisconnect = true;
+
         if (reader) {
             await reader.cancel();
             await reader.releaseLock();
@@ -52,29 +63,51 @@ async function disconnectSerial() {
         if (port) {
             await port.close();
         }
+
         isConnected = false;
         connectButton.textContent = "Connect";
         consoleElement.value += "Disconnected!\n";
+
     } catch (err) {
         console.error("Disconnection Error:", err);
         alert("Error while disconnecting!");
+    } finally {
+        isManualDisconnect = false;
     }
 }
 
 async function readData() {
-    while (port.readable) {
+    while (isConnected && port.readable && !isManualDisconnect) {
         try {
             const { value, done } = await reader.read();
-            if (done) break;
-            let decodedChunk = textDecoder.decode(value, { stream: true });
-            consoleElement.value += decodedChunk;
-            consoleElement.scrollTop = consoleElement.scrollHeight;
-            if (consoleElement.scrollWidth > consoleElement.clientWidth) {
-                consoleElement.style.overflowX = "auto";
+
+            if (done) {
+                await reader.releaseLock();
+                if (isManualDisconnect) break;
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                reader = port.readable.getReader();
+                continue;
             }
+
+            let decodedChunk = textDecoder.decode(value, { stream: true });
+
+            if (!suppressBootGarbage) {
+                consoleElement.value += decodedChunk;
+                consoleElement.scrollTop = consoleElement.scrollHeight;
+                if (consoleElement.scrollWidth > consoleElement.clientWidth) {
+                    consoleElement.style.overflowX = "auto";
+                }
+            }
+
         } catch (err) {
-            console.error("Read error:", err);
-            break;
+            if (isManualDisconnect) break;
+            try {
+                await reader.releaseLock();
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                reader = port.readable.getReader();
+            } catch (e) {
+                break;
+            }
         }
     }
 }
@@ -84,11 +117,14 @@ async function sendData() {
         alert("Not connected to a serial port!");
         return;
     }
+
     let data = inputBox.value.trim();
     if (data === "") return;
+
     let encodedData = new TextEncoder().encode(data + "\n");
     await writer.write(encodedData);
     consoleElement.value += "Sent: " + data + "\n";
+
     commandHistory.push(data);
     historyIndex = commandHistory.length;
     consoleElement.scrollTop = consoleElement.scrollHeight;
