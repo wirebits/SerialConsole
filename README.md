@@ -13,6 +13,11 @@ A web tool for communicating with serial devices via browser.
 - Windows 11
 - Kali Linux
 
+# Supported Browsers
+- Google Chrome
+- Chromium
+- Microsoft Edge
+
 # Install and Run
 1. Open the website by click [here](https://wirebits.github.io/SerialConsole/).
 2. Select the correct baud rate from the options.
