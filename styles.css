@@ -22,7 +22,7 @@ body {
     font-weight: bold;
     margin-bottom: 10px;
     color: white;
-    border: 2px solid #0FFF50;
+    border: 2px solid #FFBF00;
     padding: 10px;
     border-radius: 5px;
     letter-spacing: 5px;
@@ -58,7 +58,7 @@ body {
     flex: 1;
     min-width: 0;
     height: 30px;
-    border: 2px solid #0FFF50;
+    border: 2px solid #D648D7;
     border-radius: 5px;
     padding: 5px;
     background-color: #000000;
@@ -78,20 +78,20 @@ button {
 }
 
 #sendButton {
-    background-color: #0C873F;
-    color: white;
+    background-color: #000000;
+    color: #0C873F;
     border-color: #0C873F;
 }
 
 #clearButton {
-    background-color: #FF033E;
-    color: white;
+    background-color: #000000;
+    color: #FF033E;
     border-color: #FF033E;
 }
 
 #connectButton {
-    background-color: #7CB9E8;
-    color: black;
+    background-color: #000000;
+    color: #7CB9E8;
     border-color: #7CB9E8;
 }
 
@@ -100,6 +100,5 @@ select {
     color: white;
     height: 40px;
     border-radius: 5px;
-    border: 2px solid #0FFF50;
+    border: 2px solid #FFC72C;
 }
-
