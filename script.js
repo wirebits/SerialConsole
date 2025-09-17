@@ -23,14 +23,9 @@ async function connectSerial() {
             return;
         }
         port = await navigator.serial.requestPort();
-        let baudRate = document.getElementById('baudRate').value;
 
-        if (baudRate === "Select Baud Rate") {
-            alert("Please select a valid baud rate.");
-            return;
-        }
-        await port.open({ baudRate: parseInt(baudRate) });
-        consoleElement.value += "Connected! Go On!\n";
+        await port.open({ baudRate: 115200 });
+        consoleElement.value += "Connected at 115200! Go On!\n";
         isConnected = true;
         connectButton.textContent = "Disconnect";
 
